@@ -17,5 +17,5 @@
   * rosrun moveit_tutorials moveit_shallow_insertion.py
 
 ## Result
-- shallow_insertion.m
-* ![simulation result](https://github.com/oliviaHKUST/shallow-insertion/blob/master/shallow_insertion_result.png)
+- `shallow_insertion.m`
+  * ![simulation result](https://github.com/oliviaHKUST/shallow-insertion/blob/master/shallow_insertion_result.png)
