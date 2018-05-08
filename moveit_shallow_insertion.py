@@ -167,7 +167,7 @@ def shallow_insertion_start():
   rospy.sleep(2)
  
 
-  ##7. Goes down, and start the insertion process
+  ##7. Go down and start the insertion process
   pose_target.orientation.x = 0.48868426425
   pose_target.orientation.y = 0.504593823773
   pose_target.orientation.z = -0.51414136297
