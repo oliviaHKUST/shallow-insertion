@@ -12,7 +12,7 @@
 
 ## How to run it
 - `shallow_insertion.m`
- * Open shallow_insertion.m file with matlab, click 'Run' button or enter 'Ctrl+Enter' to run the code, then you will see an insertion animation.
+  * Open shallow_insertion.m file with matlab, click 'Run' button or enter 'Ctrl+Enter' to run the code, then you will see an insertion animation.
 - `moveit_shallow_insertion.py`
   * rosrun moveit_tutorials moveit_shallow_insertion.py
 
