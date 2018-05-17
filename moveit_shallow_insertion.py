@@ -22,7 +22,6 @@ global gripper_command_publisher
 
 
 def calc_R_h_from_ksi(w_init, v_init, theta):
-  #MatrixXd w_cross_v_m(3, 1)
   w_cross_v_m = np.matrix('0.0; 0.0; 0.0')
   R_ksi_1st = np.matrix('0.0 0.0 0.0 0.0; 0.0 0.0 0.0 0.0; 0.0 0.0 0.0 0.0; 0.0 0.0 0.0 0.0')
   R_w_1st = np.matrix('0.0 0.0 0.0; 0.0 0.0 0.0; 0.0 0.0 0.0')
@@ -338,130 +337,25 @@ def shallow_insertion_start():
   group.execute(plan1)
   print 'point 1'
   rospy.sleep(2)
-  # center_point = [-0.748232, -0.115241, 0.150822]
 
+  #calculate ARC waypoints
   center_point = [-0.77998840649, 0.00084252595, 0.369628519 - 0.315]
   rotate_axis = [0, 1, 0]
   waypoints_new = calc_waypoints_ARC(pose_target, center_point, rotate_axis, 45)
-
-  #8. Move to the 2nd way point in the insertion process
-  pose_target.orientation.x = 0.48757600855
-  pose_target.orientation.y = 0.504651397542
-  pose_target.orientation.z = -0.516403279155
-  pose_target.orientation.w = 0.490840357064
-  pose_target.position.x = -0.77884294211
-  pose_target.position.y = 0.0011804883180
-  pose_target.position.z = 0.37023884140
-  # group.set_pose_target(pose_target)
-  # plan1 = group.plan()
-  # group.execute(plan1)
-  # print 'point 2'
-  # rospy.sleep(2)
-
-
-  #9. Move to the 3rd way point in the insertion process
-  pose_target.orientation.x = 0.482312613696
-  pose_target.orientation.y = 0.501096936651
-  pose_target.orientation.z = -0.524521148339
-  pose_target.orientation.w = 0.491074299565
-  pose_target.position.x = -0.775233949849
-  pose_target.position.y = 0.00547868308962
-  pose_target.position.z = 0.369664566685
-  waypoints.append(copy.deepcopy(pose_target))
-  # group.set_pose_target(pose_target)
-  # plan1 = group.plan()
-  # group.execute(plan1)
-  # print 'point 3'
-  # rospy.sleep(2)
-
-  #9. Move to the 4th way point in the insertion process
-  pose_target.orientation.x = 0.44689637914
-  pose_target.orientation.y = 0.524912356908
-  pose_target.orientation.z = -0.56100246517
-  pose_target.orientation.w = 0.458286894805
-  pose_target.position.x = -0.73393384646
-  pose_target.position.y = 0.0108484437617
-  pose_target.position.z = 0.365896888399
-  waypoints.append(copy.deepcopy(pose_target))
-  # group.set_pose_target(pose_target)
-  # plan1 = group.plan()
-  # group.execute(plan1)
-  # print 'point 4'
-  # rospy.sleep(2)
-
-
-  #10. Move to the 5th way point in the insertion process
-  pose_target.orientation.x = 0.411150860585
-  pose_target.orientation.y = 0.541654120717
-  pose_target.orientation.z = -0.595856425356
-  pose_target.orientation.w = 0.42722465251
-  pose_target.position.x = -0.695318810462
-  pose_target.position.y = 0.0177422577652
-  pose_target.position.z = 0.356604255418
-  waypoints.append(copy.deepcopy(pose_target))
-  # group.set_pose_target(pose_target)
-  # plan1 = group.plan()
-  # group.execute(plan1)
-  # print 'point 5'
-  # rospy.sleep(2)
-
-
-  #11. Move to the 6th way point in the insertion process
-  pose_target.orientation.x = 0.371364384225
-  pose_target.orientation.y = 0.579907287009
-  pose_target.orientation.z = -0.603816843902
-  pose_target.orientation.w = 0.40149875669
-  pose_target.position.x = -0.662692143568
-  pose_target.position.y = 0.0118211753503
-  pose_target.position.z = 0.343935175687
-  waypoints.append(copy.deepcopy(pose_target))
-  # group.set_pose_target(pose_target)
-  # plan1 = group.plan()
-  # group.execute(plan1)
-  # print 'point 6'
-  # rospy.sleep(2)
-
-
-  #12. Move to the 7th way point in the insertion process
-  pose_target.orientation.x = 0.291773722137
-  pose_target.orientation.y = 0.629675553548
-  pose_target.orientation.z = -0.644637617184
-  pose_target.orientation.w = 0.32065422942
-  pose_target.position.x = -0.592417814392
-  pose_target.position.y = 0.010615234106
-  pose_target.position.z = 0.299961240327
-  waypoints.append(copy.deepcopy(pose_target))
-  # group.set_pose_target(pose_target)
-  # plan1 = group.plan()
-  # group.execute(plan1)
-  # print 'point 7'
-  # rospy.sleep(2)
-
 
   #execute path with waypoints
   ## We want the cartesian path to be interpolated at a resolution of 1 cm
   ## which is why we will specify 0.01 as the eef_step in cartesian
   ## translation.  We will specify the jump threshold as 0.0, effectively
   ## disabling it.
-  print 'way_points new '
-  # print waypoints_new
 
   (plan3, fraction) = group.compute_cartesian_path(
                                waypoints_new,   # waypoints to follow
                                0.01,        # eef_step
                                0.0)         # jump_threshold
                                
-  print "============ Waiting while RVIZ displays plan3..."
-  
-
-
-  plan3_slower = scale_trajectory_speed(plan3, 0.5)
   group.execute(plan3)
   rospy.sleep(2)
-
-  moveit_commander.roscpp_shutdown()
-
-  return  
 
   #13. Widen the gripper
   print 'gripper 200'
